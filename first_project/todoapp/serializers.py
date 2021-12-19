@@ -1,16 +1,16 @@
-from rest_framework import serializers
 from rest_framework.relations import StringRelatedField
+from rest_framework.serializers import ModelSerializer
 
 from todoapp.models import Project, ToDo
 
 
-class ProjectModelSerializer(serializers.ModelSerializer):
+class ProjectModelSerializer(ModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
 
 
-class TodoModelSerializer(serializers.ModelSerializer):
+class TodoModelSerializer(ModelSerializer):
     project = StringRelatedField()
 
     class Meta:

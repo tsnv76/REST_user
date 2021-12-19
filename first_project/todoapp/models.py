@@ -16,7 +16,7 @@ class ToDo(models.Model):
     created_date = models.DateTimeField(verbose_name='Created at', auto_now_add=True)
     updated_date = models.DateTimeField(verbose_name='Created at', auto_now=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ManyToManyField(CustomUser)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
