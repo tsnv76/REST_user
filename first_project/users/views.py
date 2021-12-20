@@ -4,8 +4,8 @@ from .serializers import UserModelSerializer
 from .models import CustomUser
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
-from rest_framework.generics import GenericAPIView, ListAPIView
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, DestroyModelMixin
+from rest_framework.generics import GenericAPIView, ListAPIView, UpdateAPIView
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet
 from rest_framework.decorators import action
@@ -27,6 +27,9 @@ class UserAPIView(ListModelMixin, RetrieveModelMixin, GenericAPIView):
             return self.retrieve(request, *args, **kwargs)
         return self.list(request, *args, **kwargs)
 
+    def update(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
 
 class Pagination(LimitOffsetPagination):
     default_limit = 2
@@ -43,3 +46,17 @@ class UserViewSet(ListModelMixin, GenericViewSet):
     # def get_user_name(self, request, pk=None):
     #     author = CustomUser.objects.get(pk=pk)
     #     return Response({'id': str(pk)})
+
+
+class UpdateUserAPIView(RetrieveModelMixin, UpdateModelMixin, GenericAPIView):
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    queryset = CustomUser.objects.all()
+    serializer_class = UserModelSerializer
+
+    @action(methods=['PUT'], detail=True)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    @action(methods=['PATCH'], detail=True)
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
