@@ -11,9 +11,8 @@ class ProjectModelSerializer(ModelSerializer):
 
 
 class TodoModelSerializer(ModelSerializer):
-    project = StringRelatedField()
+    # project = StringRelatedField()
 
     class Meta:
         model = ToDo
-        fields = '__all__'
-
+        fields = ields = ['id', 'project', 'text', 'created_date', 'user', 'is_active']

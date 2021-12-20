@@ -98,7 +98,7 @@ class DeleteTodoAPIView(RetrieveModelMixin, DestroyModelMixin, GenericAPIView):
 
     @action(methods=['POST'], detail=True)
     def perform_destroy(self, instance):
-        instance.is_active = True
+        instance.is_active = False
         instance.save()
 
 
@@ -116,7 +116,6 @@ class CreateTodoAPIView(RetrieveModelMixin, CreateModelMixin, GenericAPIView):
         if 'pk' in kwargs:
             return self.retrieve(request, *args, **kwargs)
         return self.create(request, *args, **kwargs)
-
 
 
 class DeleteProjectAPIView(RetrieveModelMixin, DestroyModelMixin, GenericAPIView):
