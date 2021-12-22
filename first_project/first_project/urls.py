@@ -5,13 +5,18 @@ from rest_framework.routers import DefaultRouter
 import todoapp
 import users
 from todoapp.views import ProjectViewSet, ToDoViewSet, ProjectAPIView, ToDoAPIView, UpdateProjectAPIView, \
-    UpdateTodoAPIView, CreateProjectAPIView, DeleteProjectAPIView, CreateTodoAPIView, DeleteTodoAPIView
+    UpdateTodoAPIView, CreateProjectAPIView, DeleteProjectAPIView, CreateTodoAPIView, DeleteTodoAPIView, \
+    ProjectParamFilterViewSet, TodoParamFilterViewSet
 from users.views import UserViewSet, UserAPIView, UpdateUserAPIView
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename=users)
 router.register('project', ProjectViewSet)
 router.register('todo', ToDoViewSet)
+router.register('project_filters', ProjectParamFilterViewSet)
+router.register('todo_filters', TodoParamFilterViewSet)
+
+
 
 
 urlpatterns = [
@@ -30,5 +35,6 @@ urlpatterns = [
     path('api/todo/update/<int:pk>/', UpdateTodoAPIView.as_view()),
     path('api/todo/create/', CreateTodoAPIView.as_view()),
     path('api/todo/delete/<int:pk>/', DeleteTodoAPIView.as_view()),
+
 
 ]

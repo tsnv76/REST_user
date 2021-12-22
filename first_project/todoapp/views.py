@@ -44,26 +44,43 @@ class ToDoAPIView(ListModelMixin, RetrieveModelMixin, GenericAPIView):
 
 
 class PaginationProject(LimitOffsetPagination):
-    default_limit = 2
+    default_limit = 10
 
 
 class ProjectViewSet(ListModelMixin, GenericViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-    # filterset_fields = ['Project']
     pagination_class = PaginationProject
 
 
+class ProjectParamFilterViewSet(ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+
+    def get_queryset(self):
+        name = self.request.query_params.get('name', '')
+        project = Project.objects.all()
+        if name:
+            project = project.filter(name__contains=name)
+        return project
+
+
+class ProjectFiltersViewSet(ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+    filterset_fields = ['name']
+
+
 class PaginationTodo(LimitOffsetPagination):
-    default_limit = 2
+    default_limit = 20
 
 
 class ToDoViewSet(ListModelMixin, GenericViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = ToDo.objects.all()
     serializer_class = TodoModelSerializer
-    # filterset_fields = ['Project']
+    filterset_fields = ['user']
     pagination_class = PaginationTodo
 
 
@@ -100,6 +117,7 @@ class DeleteTodoAPIView(RetrieveModelMixin, DestroyModelMixin, GenericAPIView):
     def perform_destroy(self, instance):
         instance.is_active = False
         instance.save()
+        return instance
 
 
 class CreateTodoAPIView(RetrieveModelMixin, CreateModelMixin, GenericAPIView):
@@ -161,3 +179,16 @@ class UpdateProjectAPIView(RetrieveModelMixin, UpdateModelMixin, GenericAPIView)
     @action(methods=['PATCH'], detail=True)
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
+
+class TodoParamFilterViewSet(ModelViewSet):
+    queryset = ToDo.objects.all()
+    serializer_class = TodoModelSerializer
+
+    def get_queryset(self):
+        name = self.request.query_params.get('text', '')
+        text = ToDo.objects.all()
+        if name:
+            text = text.filter(text__contains=name)
+        return text
+
