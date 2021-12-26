@@ -41,7 +41,7 @@ grid-gap: 20px;
 }
 `;
 
-export const HeaderLink = styled.a`
+export const Link = styled.a`
 color: black;
 margin-bottom: 20px;
 font-size: 18px;

@@ -51,7 +51,7 @@ class ProjectViewSet(ListModelMixin, GenericViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-    pagination_class = PaginationProject
+    # pagination_class = PaginationProject
 
 
 class ProjectParamFilterViewSet(ModelViewSet):
@@ -81,7 +81,7 @@ class ToDoViewSet(ListModelMixin, GenericViewSet):
     queryset = ToDo.objects.all()
     serializer_class = TodoModelSerializer
     filterset_fields = ['user']
-    pagination_class = PaginationTodo
+    # pagination_class = PaginationTodo
 
 
 class UpdateTodoAPIView(RetrieveModelMixin, UpdateModelMixin, GenericAPIView):

@@ -3,8 +3,8 @@ const UserItem = ({user}) => {
         <tr>
             <td>{user.first_name}</td>
             <td>{user.last_name}</td>
-            <td>{user.email }</td>
-            <td>{user.date_joined }</td>
+            <td>{user.email}</td>
+            <td>{user.date_joined}</td>
         </tr>
     )
 }
