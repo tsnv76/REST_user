@@ -1,3 +1,4 @@
+from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -13,11 +14,13 @@ from todoapp.serializers import ProjectModelSerializer, TodoModelSerializer
 
 class ProjectModelViewSet(ModelViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    permission_classes = [DjangoModelPermissions]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
 
 
 class TodoModelViewSet(ModelViewSet):
+    permission_classes = [DjangoModelPermissions]
     queryset = ToDo.objects.all()
     serializer_class = TodoModelSerializer
 

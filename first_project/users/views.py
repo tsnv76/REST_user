@@ -1,3 +1,4 @@
+from rest_framework.permissions import BasePermission, DjangoModelPermissions
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.viewsets import ModelViewSet
 from .serializers import UserModelSerializer
@@ -11,8 +12,14 @@ from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet
 from rest_framework.decorators import action
 
 
+# class CustomPermission(BasePermission):
+#     def has_permission(self, request, view):
+#         return bool(request.user and request.user.is_superuser)
+
+
 class UserModelViewSet(ModelViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    permission_classes = [DjangoModelPermissions]
     queryset = CustomUser.objects.all()
     serializer_class = UserModelSerializer
 

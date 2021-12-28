@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 
 import todoapp
 import users
@@ -17,11 +18,11 @@ router.register('project_filters', ProjectParamFilterViewSet)
 router.register('todo_filters', TodoParamFilterViewSet)
 
 
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api-token-auth/', views.obtain_auth_token),
     path('api/users/', UserViewSet.as_view({'get': 'list'})),
     path('api/users/<int:pk>/', UserAPIView.as_view()),
     path('api/users/update/<int:pk>/', UpdateUserAPIView.as_view()),
