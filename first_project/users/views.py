@@ -48,11 +48,7 @@ class UserViewSet(ListModelMixin, GenericViewSet):
     serializer_class = UserModelSerializer
     # filterset_fields = ['first_name']
     # pagination_class = Pagination
-    #
-    # @action(methods=['GET'], detail=True)
-    # def get_user_name(self, request, pk=None):
-    #     author = CustomUser.objects.get(pk=pk)
-    #     return Response({'id': str(pk)})
+
 
 
 class UpdateUserAPIView(RetrieveModelMixin, UpdateModelMixin, GenericAPIView):

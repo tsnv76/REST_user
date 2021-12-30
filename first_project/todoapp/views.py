@@ -194,4 +194,3 @@ class TodoParamFilterViewSet(ModelViewSet):
         if name:
             text = text.filter(text__contains=name)
         return text
-
