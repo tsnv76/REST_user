@@ -13,8 +13,8 @@ from todoapp.serializers import ProjectModelSerializer, TodoModelSerializer
 
 
 class ProjectModelViewSet(ModelViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
-    permission_classes = [DjangoModelPermissions]
+    # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    # permission_classes = [DjangoModelPermissions]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
 
@@ -34,6 +34,7 @@ class ProjectAPIView(ListModelMixin, RetrieveModelMixin, GenericAPIView):
         if 'pk' in kwargs:
             return self.retrieve(request, *args, **kwargs)
         return self.list(request, *args, **kwargs)
+
 
 class ToDoAPIView(ListModelMixin, RetrieveModelMixin, GenericAPIView):
     renderer_classes = [JSONRenderer]

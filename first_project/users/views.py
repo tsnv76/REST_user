@@ -18,8 +18,8 @@ from rest_framework.decorators import action
 
 
 class UserModelViewSet(ModelViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
-    permission_classes = [DjangoModelPermissions]
+    # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    # permission_classes = [DjangoModelPermissions]
     queryset = CustomUser.objects.all()
     serializer_class = UserModelSerializer
 
@@ -48,7 +48,6 @@ class UserViewSet(ListModelMixin, GenericViewSet):
     serializer_class = UserModelSerializer
     # filterset_fields = ['first_name']
     # pagination_class = Pagination
-
 
 
 class UpdateUserAPIView(RetrieveModelMixin, UpdateModelMixin, GenericAPIView):

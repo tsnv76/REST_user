@@ -1,17 +1,8 @@
-
-import React from "react";
-import {
-Box,
-Container,
-Row,
-Column,
-HeaderLink,
-Heading,
-} from "./HeaderStyle";
+import {Box, Column, Container, Row} from "./HeaderStyle";
 import {Link} from "react-router-dom";
+import React from "react";
 
-const Header = () => {
-return (
+<nav>
         <Box>
             <Container>
             <Row>
@@ -31,6 +22,4 @@ return (
             </Row>
           </Container>
         </Box>
-);
-};
-export default Header;
+</nav>
