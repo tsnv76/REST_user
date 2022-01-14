@@ -10,9 +10,15 @@ class ProjectModelSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class ProjectModelSerializerV2(ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['first_name', 'last_name']
+
+
 class TodoModelSerializer(ModelSerializer):
     # project = StringRelatedField()
 
     class Meta:
         model = ToDo
-        fields = ields = ['id', 'project', 'text', 'created_date', 'user', 'is_active']
+        fields = '__all__'

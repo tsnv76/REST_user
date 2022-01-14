@@ -1,7 +1,11 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from rest_framework.permissions import AllowAny
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
 
 import todoapp
 import users
@@ -9,6 +13,19 @@ from todoapp.views import ProjectViewSet, ToDoViewSet, ProjectAPIView, ToDoAPIVi
     UpdateTodoAPIView, CreateProjectAPIView, DeleteProjectAPIView, CreateTodoAPIView, DeleteTodoAPIView, \
     ProjectParamFilterViewSet, TodoParamFilterViewSet
 from users.views import UserViewSet, UserAPIView, UpdateUserAPIView
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='Todo List',
+        default_version='v1',
+        description='',
+        contact=openapi.Contact(email='test@test.com'),
+        license=openapi.License(name='MIT')
+    ),
+    public=True,
+    permission_classes=(AllowAny,)
+)
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename=users)
@@ -37,5 +54,15 @@ urlpatterns = [
     path('api/todo/create/', CreateTodoAPIView.as_view()),
     path('api/todo/delete/<int:pk>/', DeleteTodoAPIView.as_view()),
 
+    # re_path(r'^api/(?P<version>.\d)', ProjectViewSet.as_view({'get': 'list'})),
+    # path('api/project/v1', include('todoapp.urls', namespace='v1')),
+    # path('api/project/v2', include('todoapp.urls', namespace='v2')),
+
+    re_path(r'^api/(?P<version>.\d)', UserViewSet.as_view({'get': 'list'})),
+    path('api/users/v1', include('users.urls', namespace='v1')),
+    path('api/users/v2', include('users.urls', namespace='v2')),
+
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0)),
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0)),
 
 ]

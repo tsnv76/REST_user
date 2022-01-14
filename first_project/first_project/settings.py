@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'django_filters',
+    'drf_yasg',
     'users',
     'todoapp',
 ]
@@ -98,7 +99,22 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    # http://127.0.0.1:8000/api/project/
+    # http://127.0.0.1:8000/api/v2/project/
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+
+    # http://127.0.0.1:8000/api/project/v1/
+    # http://127.0.0.1:8000/api/project/v2/
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+
+    # http://v1.site_name/api/project/
+    # http://v2.site_name/api/project/
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.HostNameVersioning',
+
+    # http://127.0.0.1:8000/api/project/
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
+
 
 }
 

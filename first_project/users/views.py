@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission, DjangoModelPermissions
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.viewsets import ModelViewSet
-from .serializers import UserModelSerializer
+from .serializers import UserModelSerializer, UserModelSerializerV2
 from .models import CustomUser
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
@@ -22,6 +22,11 @@ class UserModelViewSet(ModelViewSet):
     # permission_classes = [DjangoModelPermissions]
     queryset = CustomUser.objects.all()
     serializer_class = UserModelSerializer
+
+    def get_serializer_class(self):
+        if self.request.version == 'v2':
+            return UserModelSerializerV2
+        return UserModelSerializer
 
 
 class UserAPIView(ListModelMixin, RetrieveModelMixin, GenericAPIView):

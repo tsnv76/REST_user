@@ -9,14 +9,14 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, DestroyMod
 from rest_framework.decorators import action
 
 from todoapp.models import Project, ToDo
-from todoapp.serializers import ProjectModelSerializer, TodoModelSerializer
+from todoapp.serializers import ProjectModelSerializer, TodoModelSerializer, ProjectModelSerializerV2
 
 
 class ProjectModelViewSet(ModelViewSet):
     # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     # permission_classes = [DjangoModelPermissions]
     queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
+    # serializer_class = ProjectModelSerializer
 
 
 class TodoModelViewSet(ModelViewSet):
@@ -54,8 +54,13 @@ class PaginationProject(LimitOffsetPagination):
 class ProjectViewSet(ListModelMixin, GenericViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
+    # serializer_class = ProjectModelSerializer
     # pagination_class = PaginationProject
+
+    def get_serializer_class(self):
+        if self.request.version == 'v2':
+            return ProjectModelSerializerV2
+        return ProjectModelSerializer
 
 
 class ProjectParamFilterViewSet(ModelViewSet):
