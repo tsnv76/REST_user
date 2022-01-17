@@ -42,9 +42,15 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
+    'graphene_django',
     'users',
     'todoapp',
 ]
+
+GRAPHENE = {
+    'SCHEMA': 'users.schema.schema'
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
