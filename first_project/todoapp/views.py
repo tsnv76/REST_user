@@ -152,7 +152,7 @@ class DeleteProjectAPIView(RetrieveModelMixin, DestroyModelMixin, GenericAPIView
 
     @action(methods=['POST'], detail=True)
     def perform_destroy(self, instance):
-        instance.is_active = True
+        instance.is_active = False
         instance.save()
 
 
