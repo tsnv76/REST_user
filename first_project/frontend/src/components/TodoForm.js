@@ -5,7 +5,6 @@ class TodoForm extends React.Component {
         super(prop)
         this.state = {
             'text': '',
-            'created_date': '',
             'project': [],
             'user': [],
         }
@@ -36,8 +35,8 @@ class TodoForm extends React.Component {
     }
 
     handleSubmit(event) {
-        // console.log(this.state.text, this.state.created_date, this.state.project, this.state.user)
-        this.props.create_todo(this.state.text, this.state.created_date, this.state.project, this.state.user)
+        // console.log('handleSubmit', this.state.text, this.state.project, this.state.user)
+        this.props.create_todo(this.state.text, this.state.project, this.state.user)
         event.preventDefault()
     }
 
@@ -46,8 +45,6 @@ class TodoForm extends React.Component {
             <form onSubmit={(event) => this.handleSubmit(event)}>
                 <input type="text" name="text" placeholder="title" value={this.state.text}
                        onChange={(event) => this.handleChange(event)}/>
-                <input type="date" name="created_date" placeholder="created_date" value={this.state.created_date}
-                       onChange={(event) => this.handleChange(event)}/>
                 <input type="text" name="project" placeholder="project" value={this.state.project}
                        onChange={(event) => this.handleChange(event)}/>
                 <input type="text" name="user" placeholder="user" value={this.state.user}
@@ -55,8 +52,8 @@ class TodoForm extends React.Component {
                 {/*<select  name="project" onChange={(event) => this.handleChange(event)}>*/}
                 {/*    {this.props.project.map((users) =><option value={project.id}>{project.name}</option>)}*/}
                 {/*</select>*/}
-                {/*<select  name="users" onChange={(event) => this.handleUserChange(event)}>*/}
-                {/*    {this.props.user.map((user) =><option value={user.id}>{user.first_name} {user.last_name}</option>)}*/}
+                {/*<select  name="user" onChange={(event) => this.handleUserChange(event)}>*/}
+                {/*    {this.props.users.map((user) =><option value={user.id}>{user.email}</option>)}*/}
                 {/*</select>*/}
                 <input type="submit" value="Create" />
             </form>

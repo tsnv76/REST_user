@@ -10,7 +10,8 @@ import TodoForm from "./components/TodoForm";
 import ProjectForm from "./components/ProjectForm";
 import {Box, Column, Container, HeaderLink, Row} from "./components/HeaderStyle";
 import ProjectInfo from "./components/ProjectInfo";
-import axios from 'axios'
+import axios from "axios";
+
 
 const NotFound = ({  }) => {
     let location = useLocation()
@@ -121,11 +122,11 @@ class App extends React.Component {
         })
   }
 
-  create_todo(text, created_date, project, user) {
-      console.log(text, created_date, project, user)
+  create_todo(text, project, user) {
+      console.log('create_todo', text, project, user)
       let headers = this.get_headers()
       axios
-            .post("http://127.0.0.1:8000/api/todo/", {'text': text, 'created_date': created_date, 'project': project, 'user': user}, {headers})
+            .post("http://127.0.0.1:8000/api/todo/", {'text': text, 'project': project, 'user': user}, {headers})
             .then(response => {
               this.get_data();
             })
@@ -142,8 +143,10 @@ class App extends React.Component {
         .delete(`http://127.0.0.1:8000/api/todo/${id}`, {headers})
         .then(response => {
           const todo = response.data
+          //   const todo = response => {
+            console.log('todo.id' + todo.id);
           this.setState({
-            'todo': this.state.todo.filter((todo) => todo.id != id)
+            'todo': this.state.todo.filter((todo) => todo.id !== id)
 
           })
         })
@@ -219,7 +222,7 @@ class App extends React.Component {
                 <Routes>
                     <Route exact path='/' element={<UserList users={this.state.users} /> } />
                     <Route exact path='/projects'   element={<ProjectList projects={this.state.projects} delete_project={(id) => this.delete_project(id)}/> } />
-                    <Route exact path='/todo/create'   element={<ProjectForm todo={this.state.todo} create_project={(name, repo_link, users) => this.create_todo(name, repo_link, users)}/> } />
+                    <Route exact path='/project/create'   element={<ProjectForm todo={this.state.todo} create_project={(name, repo_link, users) => this.create_todo(name, repo_link, users)}/> } />
                     <Route exact path='/todo'   element={<TodoList todo={this.state.todo} delete_todo={(id) => this.delete_todo(id)}/> } />
                     <Route exact path='/todo/create'   element={<TodoForm todo={this.state.todo} create_todo={(title, created_date, project, user) => this.create_todo(title, created_date, project, user)}/> } />
                     <Route exact path='/login'   element={<LoginForm  get_token={(login, password) => this.get_token(login, password)}/> } />

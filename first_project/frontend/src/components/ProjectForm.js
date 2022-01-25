@@ -35,7 +35,8 @@ class ProjectForm extends React.Component {
     }
 
     handleSubmit(event) {
-        this.props.create_project(this.state.name, this.state.repo_link, this.state.users)
+        // this.props.create_project(this.state.name, this.state.repo_link, this.state.users)
+        this.props.create_project(this.state.name, this.state.repo_link)
         event.preventDefault()
     }
 
@@ -44,11 +45,9 @@ class ProjectForm extends React.Component {
             <form onSubmit={(event) => this.handleSubmit(event)}>
                 <input type="text" name="name" placeholder="name" value={this.state.name}
                        onChange={(event) => this.handleChange(event)}/>
-                <input type="text" name="repo_link" placeholder="Repozitory link" value={this.state.repo_link}
+                <input type="text" name="repo_link" placeholder="repo_link" value={this.state.repo_link}
                        onChange={(event) => this.handleChange(event)}/>
-                <select  name="users" onChange={(event) => this.handleChange(event)}>
-                    {this.props.users.map((user) =><option value={user.id}>{user.id} </option>)}
-                </select>
+                {/*<select  name="users" onChan00*/}
                 <input type="submit" value="Create" />
             </form>
         )
