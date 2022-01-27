@@ -25,5 +25,18 @@ services:
         python manage.py migrate &&
         gunicorn first_project.wsgi -b 0.0.0.0:8080
       "
+  nginx:
+    build: ./first_project/nginx
+    privileged: true
+    ports:
+      - "8000:80"
+    depends_on:
+      - backend
 
-
+  frontend:
+    build: ./first_project/frontend
+    privileged: true
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
