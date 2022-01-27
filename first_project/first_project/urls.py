@@ -14,8 +14,7 @@ import users
 from todoapp.views import ProjectViewSet, ToDoViewSet, ProjectAPIView, ToDoAPIView, UpdateProjectAPIView, \
     UpdateTodoAPIView, CreateProjectAPIView, DeleteProjectAPIView, CreateTodoAPIView, DeleteTodoAPIView, \
     ProjectParamFilterViewSet, TodoParamFilterViewSet
-from users.views import UserViewSet, UserAPIView, UpdateUserAPIView
-
+from users.views import UserViewSet, UserAPIView, UpdateUserAPIView, CreateUserAPIView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -49,6 +48,7 @@ urlpatterns = [
     path('api/project/<int:pk>/', ProjectAPIView.as_view()),
     path('api/project/update/<int:pk>/', UpdateProjectAPIView.as_view()),
     path('api/project/create/', CreateProjectAPIView.as_view()),
+    path('api/users/create/', CreateUserAPIView.as_view()),
     path('api/project/delete/<int:pk>/', DeleteProjectAPIView.as_view()),
     path('api/todo/', ToDoViewSet.as_view({'get': 'list'})),
     path('api/todo/<int:pk>/', ToDoAPIView.as_view()),

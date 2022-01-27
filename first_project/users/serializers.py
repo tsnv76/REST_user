@@ -5,7 +5,7 @@ from .models import CustomUser
 class UserModelSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'first_name', 'last_name', 'email', 'date_joined', ]
+        fields = ['id', 'first_name', 'last_name', 'email', 'date_joined', 'is_staff', ]
         # fields = '__all__'
 
     # def update(self, instance, validated_data):

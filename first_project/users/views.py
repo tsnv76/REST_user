@@ -6,7 +6,8 @@ from .models import CustomUser
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 from rest_framework.generics import GenericAPIView, ListAPIView, UpdateAPIView
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin, \
+    CreateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet
 from rest_framework.decorators import action
@@ -19,7 +20,7 @@ from rest_framework.decorators import action
 
 class UserModelViewSet(ModelViewSet):
     # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
-    # permission_classes = [DjangoModelPermissions]
+    permission_classes = [DjangoModelPermissions]
     queryset = CustomUser.objects.all()
     serializer_class = UserModelSerializer
 
@@ -67,3 +68,13 @@ class UpdateUserAPIView(RetrieveModelMixin, UpdateModelMixin, GenericAPIView):
     @action(methods=['PATCH'], detail=True)
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
+
+class CreateUserAPIView(RetrieveModelMixin, CreateModelMixin, GenericAPIView):
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    queryset = CustomUser.objects.all()
+    serializer_class = UserModelSerializer
+
+    @action(methods=['POST'], detail=True)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
